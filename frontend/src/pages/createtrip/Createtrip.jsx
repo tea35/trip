@@ -13,7 +13,7 @@ export default function Createtrip() {
   const user = "a@g";
   const place = useRef();
   const navigate = useNavigate();
-
+  const today = new Date();
   const [selectedDateRange, setSelectedDateRange] = useState([
     {
       startDate: new Date(),
@@ -21,9 +21,13 @@ export default function Createtrip() {
       key: "selection",
     },
   ]);
-
+  const [errMsg, setErrMsg] = useState("");
   const handleClick = async (e) => {
     e.preventDefault();
+    if (selectedDateRange[0].startDate <= today) {
+      setErrMsg("初日は今日より後の日付である必要があります。");
+      return;
+    }
     try {
       const first_date = format(selectedDateRange[0].startDate, "yyyy-MM-dd");
       const last_date = format(selectedDateRange[0].endDate, "yyyy-MM-dd");
@@ -35,7 +39,6 @@ export default function Createtrip() {
         first_date: first_date,
         last_date: last_date,
       };
-      console.log(trip);
       await axios.post("/triplist", trip);
       const res = await axios.post("/insert_template", { user });
       console.log(res.data.trip_id);
@@ -59,7 +62,6 @@ export default function Createtrip() {
       <form className="tripBox" onSubmit={(e) => handleClick(e)}>
         <p className="tripFormTitle">新しい旅行を作成</p>
         <p className="tripMsg">旅行情報を入力してください</p>
-
         <div className="inputRow">
           <div className="tripPlaceGroup">
             <div className="tripPlaceLabel">場所</div>
@@ -87,11 +89,11 @@ export default function Createtrip() {
             />
           </div>
         </div>
-
         <div className="divider" />
         <button className="go2registerButton" type="submit">
           登録
         </button>
+        {errMsg && <div className="errMsg">{errMsg}</div>}
       </form>
     </div>
   );

@@ -17,10 +17,13 @@ def add_item():
     item_num = data.get('item_num')
     check_bool = data.get('check_bool')
 
-
-    if not checklist_id or not item_name or not item_num or not check_bool:
-        return jsonify({'error': 'failed'}), 400
-
+   # 各フィールドの存在をチェック
+    if (checklist_id is None or
+        item_name is None or
+        item_num is None or
+        check_bool is None):
+        return jsonify({'error': 'Missing required fields'}), 400
+        
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()
 

@@ -6,40 +6,48 @@ import "./Checklist.css";
 //旅行先の荷物のチェックリスト
 export default function Checklist() {
   const navigate = useNavigate();
-  const checklist_id = useParams();
-
-  const [items, setItems] = useState([
-    { name: "着替え", checked: false, quantity: 2 },
-    { name: "下着", checked: false, quantity: 2 },
-    { name: "コンタクト", checked: false, quantity: 2 },
-    { name: "コンタクトケース", checked: false, quantity: 1 },
-    { name: "洗浄液", checked: false, quantity: 1 },
-    { name: "メガネ", checked: false, quantity: 1 },
-    { name: "イヤホン", checked: false, quantity: 1 },
-    { name: "メイク道具", checked: false, quantity: 1 },
-    { name: "スキンケア用品", checked: false, quantity: 1 },
-    { name: "スマホ充電器", checked: false, quantity: 1 },
-    { name: "イヤホン充電器", checked: false, quantity: 1 },
-    { name: "おやつ", checked: false, quantity: 1 },
-    { name: "ヘアアイロン", checked: false, quantity: 1 },
-    { name: "チケット", checked: false, quantity: 2 },
-    { name: "パスポート", checked: false, quantity: 1 },
-    { name: "パスポートのコピー", checked: false, quantity: 1 },
-    { name: "エコバック", checked: false, quantity: 1 },
-    { name: "歯ブラシ", checked: false, quantity: 1 },
-    { name: "モバイルバッテリー", checked: false, quantity: 1 },
-    { name: "傘", checked: false, quantity: 1 },
-    { name: "カメラ", checked: false, quantity: 1 },
-    { name: "バック", checked: false, quantity: 1 },
-    { name: "パジャマ", checked: false, quantity: 1 },
-    { name: "現金", checked: false, quantity: 1 },
-    { name: "カード", checked: false, quantity: 1 }
-  ]);
+  const checklist_id = useParams().checklist_id;
+  const dummyitems = [
+    { item_name: "着替え", check_bool: false, item_num: 2 },
+    { item_name: "下着", check_bool: false, item_num: 2 },
+    { item_name: "コンタクト", check_bool: false, item_num: 2 },
+    { item_name: "コンタクトケース", check_bool: false, item_num: 1 },
+    { item_name: "洗浄液", check_bool: false, item_num: 1 },
+    { item_name: "メガネ", check_bool: false, item_num: 1 },
+    { item_name: "イヤホン", check_bool: false, item_num: 1 },
+    { item_name: "メイク道具", check_bool: false, item_num: 1 },
+    { item_name: "スキンケア用品", check_bool: false, item_num: 1 },
+    { item_name: "スマホ充電器", check_bool: false, item_num: 1 },
+    { item_name: "イヤホン充電器", check_bool: false, item_num: 1 },
+    { item_name: "おやつ", check_bool: false, item_num: 1 },
+    { item_name: "ヘアアイロン", check_bool: false, item_num: 1 },
+    { item_name: "チケット", check_bool: false, item_num: 2 },
+    { item_name: "パスポート", check_bool: false, item_num: 1 },
+    { item_name: "パスポートのコピー", check_bool: false, item_num: 1 },
+    { item_name: "エコバック", check_bool: false, item_num: 1 },
+    { item_name: "歯ブラシ", check_bool: false, item_num: 1 },
+    { item_name: "モバイルバッテリー", check_bool: false, item_num: 1 },
+    { item_name: "傘", check_bool: false, item_num: 1 },
+    { item_name: "カメラ", check_bool: false, item_num: 1 },
+    { item_name: "バック", check_bool: false, item_num: 1 },
+    { item_name: "パジャマ", check_bool: false, item_num: 1 },
+    { item_name: "現金", check_bool: false, item_num: 1 },
+    { item_name: "カード", check_bool: false, item_num: 1 },
+  ];
+  const [items, setItems] = useState([]);
 
   const [newItemName, setNewItemName] = useState(""); //新規作成時の荷物
   const [newItemQuantity, setNewItemQuantity] = useState(1); //新規作成時の個数
-  const [showAddForm, setShowAddForm] = useState(false);
 
+  const handleUpdateItem = async () => {
+    const itemsSubmit = {
+      checklist_id: checklist_id,
+      items: items,
+    };
+    console.log(itemsSubmit);
+    await axios.put("/item", itemsSubmit);
+    navigate(`/tripList`);
+  };
   //チェック状態の切り替え
   const handleToggle = (index) => {
     const newItems = [...items];
@@ -57,10 +65,9 @@ export default function Checklist() {
   //チェックリストの削除
   const handleDelete = async (index) => {
     await axios.delete(`/item/${index}`);
-    const res = await axios.get(`/item?${checklist_id}`);
+    const res = await axios.get(`/item?checklist_id=${checklist_id}`);
     console.log(res.data);
-    const newItems = items.filter((_, i) => i !== index);
-    setItems(newItems);
+    setItems(res.data);
   };
 
   //荷物の新規作成
@@ -72,28 +79,25 @@ export default function Checklist() {
       item_num: newItemQuantity,
       check_bool: false,
     };
-    setItems([...items, newItem]);
     await axios.post(`/item`, newItem);
-    const res = await axios.get(`/item?${checklist_id}`);
-    console.log(res.data);
-    // setItems(res.data);
+    const res = await axios.get(`/item?checklist_id=${checklist_id}`);
+    setItems(res.data);
     setNewItemName("");
     setNewItemQuantity(1);
-    setShowAddForm(false); // 追加後にフォームを閉じる
   };
 
   //荷物の新規作成のキャンセル
   const handleCancel = () => {
     setNewItemName("");
     setNewItemQuantity(1);
-    setShowAddForm(false);
   };
   useEffect(() => {
-    const fetchItem = async () => {
+    (async () => {
       const res = await axios.get(`/item?checklist_id=${checklist_id}`);
-      console.log(res);
-    };
-  });
+      setItems(res.data);
+    })();
+  }, []);
+
   return (
     <div>
       <div className="headerBar">
@@ -106,9 +110,19 @@ export default function Checklist() {
       >
         <div className="checkList">
           <div className="titleBar">
-            <button className="backButton" style={{ backgroundImage: 'url("/back.png")' }} onClick={() => navigate(-1)}></button> {/*戻るボタン*/}
+            <button
+              className="backButton"
+              style={{ backgroundImage: 'url("/back.png")' }}
+              onClick={() => navigate(`/tripList`)}
+            ></button>{" "}
+            {/*戻るボタン*/}
             <h2 className="title">旅行チェックリスト</h2>
-            <button className="saveButton" style={{ backgroundImage: 'url("/save.png")' }}></button> {/*保存ボタン*/}
+            <button
+              className="saveButton"
+              style={{ backgroundImage: 'url("/save.png")' }}
+              onClick={handleUpdateItem}
+            ></button>{" "}
+            {/*保存ボタン*/}
           </div>
 
           <div className="checkListBox">
@@ -122,39 +136,63 @@ export default function Checklist() {
                       checked={item.check_bool}
                       onChange={() => handleToggle(idx)}
                     />
-                    {item.name}
-                    {item.quantity > 1 && (
-                    <span className="quantityItem"> ×{item.quantity} </span>
+                    {item.item_name}
+                    {item.item_num > 1 && (
+                      <span className="quantityItem"> ×{item.item_num} </span>
                     )}
                   </label>
-                    <div className="quantityChange"> {/*数量変更*/}
-                      {item.quantity > 1 && (
-                        <div >
-                          <button className="minusButton" onClick={() => handleQuantityChange(idx, item.quantity - 1)} disabled={item.quantity <= 1}>-</button> {/*-ボタン*/}
-                        </div>
-                      )}
-                      <button className="plusButton" onClick={() => handleQuantityChange(idx, item.quantity + 1)}>+</button> {/*+ボタン*/}
-                      <button className="deletebutton" style={{ backgroundImage: 'url("/delete.png")' }} onClick={() => handleDelete(idx)}></button> {/*削除ボタン*/}
-                    </div>
+                  <div className="quantityChange">
+                    {" "}
+                    {/*数量変更*/}
+                    {item.item_num > 1 && (
+                      <div>
+                        <button
+                          className="minusButton"
+                          onClick={() =>
+                            handleQuantityChange(idx, item.item_num - 1)
+                          }
+                          disabled={item.item_num <= 1}
+                        >
+                          -
+                        </button>{" "}
+                        {/*-ボタン*/}
+                      </div>
+                    )}
+                    <button
+                      className="plusButton"
+                      onClick={() =>
+                        handleQuantityChange(idx, item.item_num + 1)
+                      }
+                    >
+                      +
+                    </button>{" "}
+                    {/*+ボタン*/}
+                    <button
+                      className="deletebutton"
+                      style={{ backgroundImage: 'url("/delete.png")' }}
+                      onClick={() => handleDelete(item.item_id)}
+                    ></button>{" "}
+                    {/*削除ボタン*/}
+                  </div>
                 </li>
               ))}
             </ul>
           </div>
-          
+
           <div className="createCheckList">
-            {/*チェックリストの新規作成*/}
-            {/*<button className="createListButton"onClick={() => setShowAddForm(true)}>+</button> 新規作成*/}
             <div className="addItemForm">
               <div className="inputGroup">
                 <input
                   type="text"
                   placeholder="荷物"
+                  required
                   value={newItemName}
                   onChange={(e) => setNewItemName(e.target.value)}
                 />
                 <input
                   type="number"
                   value={newItemQuantity}
+                  required
                   onChange={(e) => setNewItemQuantity(Number(e.target.value))}
                   min="1"
                 />
