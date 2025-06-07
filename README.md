@@ -60,6 +60,8 @@ python3 backend/sample.py
             └── sqlite3.exe
 ```
 
+### データベースの構造
+
 ## API関連
 
 ### Flaskサーバー起動方法
