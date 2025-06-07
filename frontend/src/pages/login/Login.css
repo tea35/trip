@@ -38,11 +38,32 @@ html, body {
     box-sizing: border-box; 
 }
 
-/*
 .loginLeft {
-    flex: 1;
+    flex: 1.2;
+    display: flex;
+    padding-bottom: 400px;
+    padding-left: 80px;
+    align-items: center; 
 }
-*/
+
+.mainTitle {
+    font-size: 2.6em;
+    margin-bottom: -0.4em;
+    color:#191b27
+}
+
+.subTitle {
+    font-size: 1.4em;
+    margin-bottom: 1.5em;
+    color:#34353a
+}
+
+.divider_ver {
+    width: 1px;
+    height: 80%;
+    background-color: #34353a;
+    margin-left: 130px;
+}
 
 .loginRight {
     flex: 1;

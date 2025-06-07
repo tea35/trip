@@ -47,7 +47,22 @@ export default function Register() {
         style={{ backgroundImage: 'url("/sample2.png")' }}
       >
         <div className="registerForm">
-          <div className="registerLeft"></div>
+          <div className="registerLeft">
+            <div className="welcomeMsg">
+              <h1 className="mainTitle">忘れ物ゼロの旅へ</h1>
+              <h2 className="subTitle">あなただけのチェックリストで、もっと自由な旅行を</h2>
+
+              <section>
+                <p>
+                  <strong>TripList</strong> は、旅行前の「持ち物チェック」をもっと簡単・便利にする、あなただけの旅行準備アプリです。<br></br>
+                  ログイン・会員登録をすると、自分専用のチェックリストを保存・編集・カスタマイズできるようになります。<br></br>
+                  国内旅行でも、海外旅行でも、「あれ持ったっけ？」の不安をこのアプリが解決します。
+                </p>
+              </section>
+            </div>
+            <div className="divider_ver"></div>
+          </div>
+
 
           <div className="registerRight">
             <form className="registerBox" onSubmit={(e) => handleClick(e)}>
