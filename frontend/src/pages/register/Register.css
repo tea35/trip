@@ -2,97 +2,145 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  font-size: 16px;
+  font-family: sans-serif;
 }
 
 .headerBar {
-    width: 100%;
-    height: 60px;
-    background-color: #3a6aee; 
-    color: white;
-    display: flex;
-    align-items: center;
-    padding-left: 20px;
-    position: fixed; 
-    top: 0;
-    left: 0;
-    z-index: 1000;
+  width: 100%;
+  height: 60px;
+  background-color: #3a6aee; 
+  color: white;
+  display: flex;
+  align-items: center;
+  padding-left: 1.25rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 }
 
+
+/* 背景エリア全体 */
 .registerBackground {
-    background-size: cover;
-    background-position: center;
-    height: 100vh;      
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 60px;
+  box-sizing: border-box;
 }
 
-
-
+/* フォームと説明文を左右に並べる */
 .registerForm {
-    display: flex;
-    width: 100%;              
-    height: 100vh;  
-    margin: auto;           
-    padding-top: 60px;       
-    box-sizing: border-box; 
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 1400px;
+  margin: auto;
+  padding: 1.5rem;
+  box-sizing: border-box;
 }
 
+/* 左側：説明文 */
 .registerLeft {
-    flex: 1.2;
-    display: flex;
-    padding-bottom: 400px;
-    padding-left: 80px;
-    align-items: center; 
+  flex: 0 0 65%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 2rem;
+  position: relative;
+  color: #191b27;
+  white-space: pre-line; /* <br />だけで改行できるように */
 }
 
+/* タイトル */
 .mainTitle {
-    font-size: 2.6em;
-    margin-bottom: -0.4em;
-    color:#191b27
+  font-size: 2.6rem;
+  margin-bottom: -0.5rem;
+  color: #191b27;
 }
 
+/* サブタイトル */
 .subTitle {
-    font-size: 1.4em;
-    margin-bottom: 1.5em;
-    color:#34353a
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+  color: #34353a;
 }
 
+/* アプリ説明文 */
+.registerLeft section p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #444;
+  white-space: pre-line;  /* <br /> でのみ改行 */
+}
+
+/* 縦線（区切り） */
+.divider_ver {
+  position: absolute;
+  top: 0;
+  right: -1rem; /* 少し右にずらすときれい */
+  width: 1px;
+  height: 100%;
+  background-color: grey;
+}
+
+/* 右側：フォーム */
 .registerRight {
-    flex: 1;
-    display: flex;
-    justify-content: center; 
-    align-items: center; 
-    padding-bottom: 80px
-    
-
+  flex: 0 0 35%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 5rem;
 }
 
-
+/* フォームボックス */
 .registerBox {
-    display: flex;
-    flex-direction: column;
-    gap: 20px; 
-    width: 500px;
-    background-color: rgba(255, 255, 255, 0.85); 
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 400px;
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
 }
 
+/* フォーム内タイトル */
 .registerTitle {
-    font-size: 25px;
-    margin: auto;
+  font-size: 1.5rem;
+  margin: auto;
+}
+
+.registerMsg {
+  font-size: 0.9rem;
+  color: #333;
 }
 
 .registerInput {
-  padding: 8px;
-  font-size: 16px;
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .registerButton {
-    height: 45px;
-    width: 180px;
-    margin: auto;
+  height: 45px;
+  width: 100%;
+  max-width: 200px;
+  margin: auto;
+  background-color: #3a6aee;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.registerButton:hover {
+  background-color: #2e58c4;
 }

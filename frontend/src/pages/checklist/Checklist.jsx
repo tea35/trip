@@ -9,10 +9,31 @@ export default function Checklist() {
   const checklist_id = useParams();
 
   const [items, setItems] = useState([
-    { item_name: "着替え", check_bool: false, item_num: 2, item_id: 1 },
-    { item_name: "下着", check_bool: false, item_num: 2, item_id: 2 },
-    { item_name: "コンタクト", check_bool: false, item_num: 2, item_id: 3 },
-    { item_name: "充電器", check_bool: false, item_num: 1, item_id: 4 },
+    { name: "着替え", checked: false, quantity: 2 },
+    { name: "下着", checked: false, quantity: 2 },
+    { name: "コンタクト", checked: false, quantity: 2 },
+    { name: "コンタクトケース", checked: false, quantity: 1 },
+    { name: "洗浄液", checked: false, quantity: 1 },
+    { name: "メガネ", checked: false, quantity: 1 },
+    { name: "イヤホン", checked: false, quantity: 1 },
+    { name: "メイク道具", checked: false, quantity: 1 },
+    { name: "スキンケア用品", checked: false, quantity: 1 },
+    { name: "スマホ充電器", checked: false, quantity: 1 },
+    { name: "イヤホン充電器", checked: false, quantity: 1 },
+    { name: "おやつ", checked: false, quantity: 1 },
+    { name: "ヘアアイロン", checked: false, quantity: 1 },
+    { name: "チケット", checked: false, quantity: 2 },
+    { name: "パスポート", checked: false, quantity: 1 },
+    { name: "パスポートのコピー", checked: false, quantity: 1 },
+    { name: "エコバック", checked: false, quantity: 1 },
+    { name: "歯ブラシ", checked: false, quantity: 1 },
+    { name: "モバイルバッテリー", checked: false, quantity: 1 },
+    { name: "傘", checked: false, quantity: 1 },
+    { name: "カメラ", checked: false, quantity: 1 },
+    { name: "バック", checked: false, quantity: 1 },
+    { name: "パジャマ", checked: false, quantity: 1 },
+    { name: "現金", checked: false, quantity: 1 },
+    { name: "カード", checked: false, quantity: 1 }
   ]);
 
   const [newItemName, setNewItemName] = useState(""); //新規作成時の荷物
@@ -85,8 +106,9 @@ export default function Checklist() {
       >
         <div className="checkList">
           <div className="titleBar">
-            <h2>旅行チェックリスト</h2>
-            <button className="saveButton">保存</button>
+            <button className="backButton" style={{ backgroundImage: 'url("/back.png")' }} onClick={() => navigate(-1)}></button> {/*戻るボタン*/}
+            <h2 className="title">旅行チェックリスト</h2>
+            <button className="saveButton" style={{ backgroundImage: 'url("/save.png")' }}></button> {/*保存ボタン*/}
           </div>
 
           <div className="checkListBox">
@@ -100,68 +122,50 @@ export default function Checklist() {
                       checked={item.check_bool}
                       onChange={() => handleToggle(idx)}
                     />
-                    {item.item_name}
-                  </label>
-                  <div className="quantityChange">
-                    {" "}
-                    {/*数量変更*/}
-                    {item.item_num > 1 && (
-                      <div>
-                        <button
-                          onClick={() =>
-                            handleQuantityChange(idx, item.item_num - 1)
-                          }
-                          disabled={item.item_num <= 1}
-                        >
-                          -
-                        </button>
-                        <span className="quantityItem">{item.item_num}個</span>
-                      </div>
+                    {item.name}
+                    {item.quantity > 1 && (
+                    <span className="quantityItem"> ×{item.quantity} </span>
                     )}
-                    <button
-                      onClick={() =>
-                        handleQuantityChange(idx, item.item_num + 1)
-                      }
-                    >
-                      +
-                    </button>
-                    <button
-                      className="deleteButton"
-                      onClick={() => handleDelete(idx)}
-                    >
-                      削除
-                    </button>
-                  </div>
+                  </label>
+                    <div className="quantityChange"> {/*数量変更*/}
+                      {item.quantity > 1 && (
+                        <div >
+                          <button className="minusButton" onClick={() => handleQuantityChange(idx, item.quantity - 1)} disabled={item.quantity <= 1}>-</button> {/*-ボタン*/}
+                        </div>
+                      )}
+                      <button className="plusButton" onClick={() => handleQuantityChange(idx, item.quantity + 1)}>+</button> {/*+ボタン*/}
+                      <button className="deletebutton" style={{ backgroundImage: 'url("/delete.png")' }} onClick={() => handleDelete(idx)}></button> {/*削除ボタン*/}
+                    </div>
                 </li>
               ))}
             </ul>
           </div>
-
-          {/*チェックリストの新規作成*/}
-          <button
-            className="createListButton"
-            onClick={() => setShowAddForm(true)}
-          >
-            新規作成
-          </button>
-          {showAddForm && (
+          
+          <div className="createCheckList">
+            {/*チェックリストの新規作成*/}
+            {/*<button className="createListButton"onClick={() => setShowAddForm(true)}>+</button> 新規作成*/}
             <div className="addItemForm">
-              <input
-                type="text"
-                placeholder="荷物"
-                value={newItemName}
-                onChange={(e) => setNewItemName(e.target.value)}
-              />
-              <input
-                type="number"
-                value={newItemQuantity}
-                onChange={(e) => setNewItemQuantity(Number(e.target.value))}
-                min="1"
-              />
-              <button onClick={handleAddItem}>追加</button>
-              <button onClick={handleCancel}>キャンセル</button>
+              <div className="inputGroup">
+                <input
+                  type="text"
+                  placeholder="荷物"
+                  value={newItemName}
+                  onChange={(e) => setNewItemName(e.target.value)}
+                />
+                <input
+                  type="number"
+                  value={newItemQuantity}
+                  onChange={(e) => setNewItemQuantity(Number(e.target.value))}
+                  min="1"
+                />
+              </div>
+
+              <div className="buttonGroup">
+                <button onClick={handleAddItem}>追加</button>
+                <button onClick={handleCancel}>キャンセル</button>
+              </div>
             </div>
-          )}
+          </div>
         </div>
       </div>
     </div>

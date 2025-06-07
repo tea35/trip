@@ -1,4 +1,4 @@
-html, body {
+hhtml, body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -31,12 +31,15 @@ html, body {
 .checkList {
   display: flex;
   flex-direction: column;
+  position: relative;
   gap: 20px; 
-  width: 500px;
+  width: 1000px;
+  height: 750px;
   background-color: rgba(255, 255, 255, 0.85); 
   padding: 40px;
   border-radius: 8px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  margin-top: 20px; 
 }
 
 .titleBar {
@@ -44,27 +47,64 @@ html, body {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: 400px;
   margin-bottom: 10px;
+  font-size:22px;
+  margin-bottom: -0.4em;
+}
+
+.title {
+  padding-left: 70px;
+}
+
+.backButton {
+  position: absolute;
+  left: 42px;
+  width: 50px;
+  height: 50px;
+  background-size: cover;     /* 画像をボタンサイズに拡大縮小して全体を覆う */
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 1px solid #ccc;   
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 6px;
 }
 
 .saveButton {
-  height: 45px;
-  width: 60px;
-  margin-left: auto;
+  position: absolute;
+  right: 110px;
+  width: 50px;
+  height: 50px;
+  background-size: cover;     /* 画像をボタンサイズに拡大縮小して全体を覆う */
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 1px solid #ccc;   
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 6px;
 }
 
 .checkListBox {
   border: 1px solid black;  /* 黒い枠線 */
   background-color: transparent;
   padding: 15px;
-  width: 400px;
+  width: 900px;
   border-radius: 8px;  
+  overflow-y: scroll;
+  font-size: 20px;
 }
 
 .checkList ul {
   list-style-type: none;
   padding-left: 10px
+}
+
+.checkList input[type="checkbox"] {
+  transform: scale(1.5);
+  margin-right: 10px;
+  cursor: pointer;
 }
 
 .listItem {
@@ -81,22 +121,95 @@ html, body {
 
 .quantityChange {
   display: inline-flex;
+  gap:10px;
 }
 
+.quantityItem {
+  color:rgb(85, 84, 84);
+  font-size: 17px;
+}
+
+
+
+
+.minusButton {
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 25px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  z-index: 10;
+}
+
+
+.plusButton {
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 25px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  z-index: 10;
+}
 
 .createListButton {
-  height: 45px;
-  width: 80px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 45px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  z-index: 10;
 }
 
+.deletebutton {
+  width: 35px;
+  height: 35px;
+  background-size: cover;     /* 画像をボタンサイズに拡大縮小して全体を覆う */
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 1px solid #ccc;   
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 6px;
+}
 
+.addItemForm {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px; /* 入力欄とボタンの間の広めの隙間 */
+  margin-top: 10px;
+}
 
-.addItemForm input {
-  padding: 5px;
-  margin-right: 5px;
+.inputGroup,
+.buttonGroup {
+  display: flex;
+  gap: 5px; /* 同グループ内の隙間 */
+}
+
+.addItemForm input,
+.addItemForm button {
+  font-size: 18px;
+  padding: 8px 12px;
+  height: 40px;
+  box-sizing: border-box;
 }
 
 .addItemForm button {
-  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid #494949;
+  background-color: white;
 }
-
