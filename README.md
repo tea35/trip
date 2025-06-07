@@ -66,12 +66,12 @@ python3 backend/sample.py
 
 **Mac**
 ```
-python3 backend/database/main_db.py
+python3 backend/main.py
 ```
 
 **Windows**
 ```
-python backend/database/main_db.py
+python backend\main.py
 ```
 
 ### ダミーデータの生成
@@ -157,4 +157,18 @@ curl "http://127.0.0.1:5000/item?checklist_id=1"
 
 ```
 curl -X DELETE http://127.0.0.1:5000/item/2
+```
+
+##### 更新用API（update_item_API.py）
+
+```
+curl -X PUT http://127.0.0.1:5000/item \
+    -H "Content-Type: application/json" \
+    -d '{
+        "checklist_id": 1,
+        "items": [
+            {"item_name":"Item_1", "item_id": 1, "item_num": 10, "check_bool": 1},
+            {"item_name":"Item_2", "item_id": 2, "item_num": 5, "check_bool": 0}
+        ]
+    }'
 ```
