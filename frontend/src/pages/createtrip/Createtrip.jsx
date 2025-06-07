@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useRef, useState } from "react";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
@@ -8,8 +9,10 @@ import "./Createtrip.css";
 
 // 旅行日程を追加
 export default function Createtrip() {
+  const user = useRef();
   const place = useRef();
   const navigate = useNavigate();
+
   const [selectedDateRange, setSelectedDateRange] = useState([
     {
       startDate: new Date(),
@@ -17,22 +20,26 @@ export default function Createtrip() {
       key: "selection",
     },
   ]);
+
   const handleClick = async (e) => {
     e.preventDefault();
     try {
       const trip = {
+        user: user.current.value,
         place: place.current.value,
+        latitude: 35.6895,   // 仮の緯度（東京）
+        longitude: 139.6917, // 仮の経度（東京）
         startDate: selectedDateRange[0].startDate,
         endDate: selectedDateRange[0].endDate,
       };
       console.log(trip);
-      // 登録する
-      // await axios.post("/trip/register", trip);
-      navigate("/tripList"); // 会員登録完了後、ログイン画面へ
+      await axios.post("/triplist", trip);
+      navigate("/tripList"); // 登録後にtripList画面へ遷移
     } catch (err) {
       console.log(err);
     }
   };
+
   return (
     <div>
       <div className="headerBar">
