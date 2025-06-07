@@ -1,5 +1,5 @@
 from flask import Flask
-from create_db import create_tables
+from database.create_db import create_tables
 from api.register_API import register_bp
 from api.login_API import login_bp
 from api.add_triplist_API import add_triplist_bp

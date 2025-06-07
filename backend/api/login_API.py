@@ -7,7 +7,7 @@ login_bp = Blueprint('login', __name__)
 
 #! バグ防止のために絶対パスを使う
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-db_path = os.path.join(BASE_DIR, '../triplist.db')
+db_path = os.path.join(BASE_DIR, '../database/triplist.db')
 
 @login_bp.route('/login', methods=['POST'])
 def login():

@@ -7,7 +7,7 @@ delete_item_bp = Blueprint('delete_item', __name__)
 
 #! バグ防止のために絶対パスを使う
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-db_path = os.path.join(BASE_DIR, '../triplist.db')
+db_path = os.path.join(BASE_DIR, '../database/triplist.db')
 
 @delete_item_bp.route('/item/<int:item_id>', methods=['DELETE'])
 def delete_item(item_id):

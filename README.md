@@ -126,9 +126,7 @@ curl -X POST http://127.0.0.1:5000/triplist \
 ##### 取得用API（get_triplist_API.py）
 
 ```
-curl -X GET http://127.0.0.1:5000/triplist \
-    -H "Content-Type: application/json" \
-    -d '{"user": "alice@example.com"}'
+curl "http://127.0.0.1:5000/triplist?user=user1@example.com"
 ```
 
 ##### 削除用API（delete_triplist_API.py）
@@ -152,9 +150,7 @@ curl -X POST http://127.0.0.1:5000/item \
 ##### 取得用API（get_item_API.py）
 
 ```
-curl -X GET http://127.0.0.1:5000/item \
-    -H "Content-Type: application/json" \
-    -d '{"checklist_id": 1}'
+curl "http://127.0.0.1:5000/item?checklist_id=1"
 ```
 
 ##### 削除用API（delete_item_API.py）
@@ -162,4 +158,3 @@ curl -X GET http://127.0.0.1:5000/item \
 ```
 curl -X DELETE http://127.0.0.1:5000/item/2
 ```
-

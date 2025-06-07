@@ -1,9 +1,13 @@
 import sqlite3
+import os
 from random import uniform, randint
 from datetime import datetime, timedelta
 
 def create_dummy_data():
-    conn = sqlite3.connect('./backend/database/triplist.db')
+    #! バグ防止のために絶対パスを使う
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    db_path = os.path.join(BASE_DIR, '../database/triplist.db')
+    conn = sqlite3.connect(db_path)
     cur = conn.cursor()
 
     # membersのダミーデータ10件

@@ -7,12 +7,11 @@ get_item_bp = Blueprint('get_item', __name__)
 
 #! バグ防止のために絶対パスを使う
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-db_path = os.path.join(BASE_DIR, '../triplist.db')
+db_path = os.path.join(BASE_DIR, '../database/triplist.db')
 
 @get_item_bp.route('/item', methods=['GET'])
 def get_item():
-    data = request.get_json()
-    checklist_id = data.get('checklist_id') #* triplistのtrip_idを入れる
+    checklist_id = request.args.get('checklist_id')
 
     if not checklist_id:
         return jsonify({'error': 'Not id'}), 400
@@ -28,13 +27,7 @@ def get_item():
         WHERE checklist_id = ?;
     ''', (checklist_id,))
 
-    rows = cur.fetchall()
-
-    # 取得結果をターミナルに表示
-    for row in rows:
-        print(row)
-
-    conn.close()
+    conn.commit()
     conn.close()
     
     return jsonify({'message': 'id'}), 201

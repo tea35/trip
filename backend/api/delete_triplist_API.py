@@ -4,8 +4,9 @@ import os
 
 delete_triplist_bp = Blueprint('delete_triplist', __name__)
 
+#! バグ防止のために絶対パスを使う
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-db_path = os.path.join(BASE_DIR, '../triplist.db')
+db_path = os.path.join(BASE_DIR, '../database/triplist.db')
 
 @delete_triplist_bp.route('/triplist/<int:trip_id>', methods=['DELETE'])
 def delete_triplist(trip_id):
@@ -29,7 +30,3 @@ def delete_triplist(trip_id):
     conn.close()
     
     return jsonify({'message': 'Triplist deleted successfully'}), 200
-
-'''
-curl -X DELETE http://127.0.0.1:5000/triplist/3
-'''

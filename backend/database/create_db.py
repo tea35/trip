@@ -1,7 +1,12 @@
 import sqlite3
+import os
 
 def create_tables():
-    conn = sqlite3.connect('./backend/database/triplist.db')  # SQLite DB ファイルに接続
+    #! バグ防止のために絶対パスを使う
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    db_path = os.path.join(BASE_DIR, '../database/triplist.db')
+    
+    conn = sqlite3.connect(db_path)  # SQLite DB ファイルに接続
     cursor = conn.cursor()
 
     # SQL スクリプトをまとめる
@@ -37,4 +42,3 @@ def create_tables():
 
     conn.commit()
     conn.close()
-    print("2つのテーブルをまとめて作成しました！")

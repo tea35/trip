@@ -7,14 +7,10 @@ add_item_bp = Blueprint('add_item', __name__)
 
 #! バグ防止のために絶対パスを使う
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-db_path = os.path.join(BASE_DIR, '../triplist.db')
+db_path = os.path.join(BASE_DIR, '../database/triplist.db')
 
 @add_item_bp.route('/item', methods=['POST'])
 def add_item():
-    '''
-
-    '''
-
     data = request.get_json()
     checklist_id = data.get('checklist_id' ) #* triplistのtrip_idを入れる
     item_name = data.get('item_name')
