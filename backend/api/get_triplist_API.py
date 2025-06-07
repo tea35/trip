@@ -28,6 +28,14 @@ def get_triplist():
         WHERE members.email = ?;
     ''', (user,))
 
+    rows = cur.fetchall()
+
     conn.close()
-    
-    return jsonify({'message': 'get triplist'}), 201
+
+    # データを辞書に変換
+    triplists = [dict(row) for row in rows]
+
+    if not triplists:
+        return jsonify({'error': 'No data found'}), 404
+
+    return jsonify(triplists), 200

@@ -27,7 +27,14 @@ def get_item():
         WHERE checklist_id = ?;
     ''', (checklist_id,))
 
-    conn.commit()
+    rows = cur.fetchall()
+
     conn.close()
-    
-    return jsonify({'message': 'id'}), 201
+
+    # データを辞書に変換
+    items = [dict(row) for row in rows]
+
+    if not items:
+        return jsonify({'error': 'No data found'}), 404
+
+    return jsonify(items), 200
