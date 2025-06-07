@@ -8,6 +8,7 @@ from api.get_triplist_API import get_triplist_bp
 from api.get_item_API import get_item_bp
 from api.delete_triplist_API import delete_triplist_bp
 from api.delete_item_API import delete_item_bp
+from api.update_item_API import update_items_bp
 
 app = Flask(__name__)
 
@@ -20,7 +21,7 @@ app.register_blueprint(get_triplist_bp)
 app.register_blueprint(get_item_bp)
 app.register_blueprint(delete_triplist_bp)
 app.register_blueprint(delete_item_bp)
-
+app.register_blueprint(update_items_bp)
 if __name__ == '__main__':
     with app.app_context():
         print(app.url_map)
