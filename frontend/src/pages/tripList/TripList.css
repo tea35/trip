@@ -18,26 +18,59 @@ html, body {
     z-index: 1000;
 }
 
-.tripList {
-  margin-top: 50px;
-  padding: 50px;
+.tripListBackground {
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    width: 100%;
+    /* position: absolute; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tripListBox {
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 8px;
+  padding: 40px;
+  margin: 100px auto;
+  height: 70%;
+  width: 800px;
+  max-width: 600px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 20px;
+}
+
+.tripFormTitle {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.tripList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 0;
+  width: 100%;
 }
 
 .tripCard {
   background-color: #f2f2f2;
-  padding: 12px 10px 10pt 50pt;
+  padding: 15px 20px 15px 50px;
   border-radius: 12px;
-  margin-right: 200px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   cursor: pointer;
   height: 60px;
   display: flex;
-  justify-content: left; 
+  justify-content: space-between;
   align-items: center; 
   gap: 15px;
+  width: 80%;
+  max-width: 500px;  
 }
 
 .tripCard:hover {
@@ -58,8 +91,8 @@ html, body {
 
 .addButton {
   position: fixed;
-  top: 90px;   /* ヘッダー下あたりに配置 */
-  right: 60px;
+  top: 100px;   /* ヘッダー下あたりに配置 */
+  right: 310px;
   background-color: #2196f3;
   color: white;
   border: none;
