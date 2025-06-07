@@ -14,7 +14,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/createtrip" element={<Createtrip />} />
         <Route path="/tripList" element={<TripList />} />
-        <Route path="/checklist" element={<Checklist />} />
+        <Route path="/checklist/:checklist_id" element={<Checklist />} />
       </Routes>
     </Router>
   );

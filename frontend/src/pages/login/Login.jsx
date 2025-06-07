@@ -16,7 +16,7 @@ export default function Login() {
         email: email.current.value,
         password: password.current.value,
       };
-      
+
       setStatusCode("");
       console.log(user);
       //loginAPIを叩く
@@ -45,12 +45,17 @@ export default function Login() {
           <div className="loginLeft">
             <div className="welcomeMsg">
               <h1 className="mainTitle">忘れ物ゼロの旅へ</h1>
-              <h2 className="subTitle">あなただけのチェックリストで、もっと自由な旅行を</h2>
+              <h2 className="subTitle">
+                あなただけのチェックリストで、もっと自由な旅行を
+              </h2>
 
               <section>
                 <p>
-                  <strong>TripList</strong> は、旅行前の「持ち物チェック」をもっと簡単・便利にする、あなただけの旅行準備アプリです。<br></br>
-                  ログイン・会員登録をすると、自分専用のチェックリストを保存・編集・カスタマイズできるようになります。<br></br>
+                  <strong>TripList</strong>{" "}
+                  は、旅行前の「持ち物チェック」をもっと簡単・便利にする、あなただけの旅行準備アプリです。
+                  <br></br>
+                  ログイン・会員登録をすると、自分専用のチェックリストを保存・編集・カスタマイズできるようになります。
+                  <br></br>
                   国内旅行でも、海外旅行でも、「あれ持ったっけ？」の不安をこのアプリが解決します。
                 </p>
               </section>

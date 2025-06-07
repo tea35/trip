@@ -9,12 +9,13 @@ export default function TripList() {
   // 仮の旅行データ（本来はバックエンドから取得）
   const TripList = [
     { id: 1, location_name: "東京", first_date: "1/1", last_date: "1/3" },
+    { id: 2, location_name: "東京", first_date: "1/1", last_date: "1/3" },
   ];
 
   const [trips, setTrips] = useState([]); // APIから取得した旅行データ用のstate
 
   // // コンポーネントが表示されたときにデータを取得
-  useEffect(async () => {
+  useEffect(() => {
     try {
       //   const res = await axios.get("/triplist?user=t@gmail.com");
       //   const TripList = res.data;
@@ -36,7 +37,7 @@ export default function TripList() {
           <div
             key={trip.id}
             className="tripCard"
-            onClick={() => navigate(`/trip/${trip.id}`)}
+            onClick={() => navigate(`/checklist/${trip.id}`)}
           >
             <p className="tripCardTitle">{trip.location_name}</p>
             <p className="tripDate">

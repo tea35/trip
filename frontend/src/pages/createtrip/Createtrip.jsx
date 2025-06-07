@@ -3,13 +3,14 @@ import React, { useRef, useState } from "react";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRange } from "react-date-range";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ja } from "date-fns/locale";
 import "./Createtrip.css";
+import { format } from "date-fns";
 
 // 旅行日程を追加
 export default function Createtrip() {
-  const user = useRef();
+  const user = "a@g";
   const place = useRef();
   const navigate = useNavigate();
 
@@ -24,17 +25,21 @@ export default function Createtrip() {
   const handleClick = async (e) => {
     e.preventDefault();
     try {
+      const first_date = format(selectedDateRange[0].startDate, "yyyy-MM-dd");
+      const last_date = format(selectedDateRange[0].endDate, "yyyy-MM-dd");
       const trip = {
-        user: user.current.value,
-        place: place.current.value,
-        latitude: 35.6895,   // 仮の緯度（東京）
-        longitude: 139.6917, // 仮の経度（東京）
-        startDate: selectedDateRange[0].startDate,
-        endDate: selectedDateRange[0].endDate,
+        user: user,
+        location_name: place.current.value,
+        location_latitude: 35.6895, // 仮の緯度（東京）
+        location_longitude: 139.6917, // 仮の経度（東京）
+        first_date: first_date,
+        last_date: last_date,
       };
       console.log(trip);
       await axios.post("/triplist", trip);
-      navigate("/tripList"); // 登録後にtripList画面へ遷移
+      const res = await axios.post("/insert_template", { user });
+      console.log(res.data.trip_id);
+      navigate(`/checklist/${res.data.trip_id}`); // 登録後にtripList画面へ遷移
     } catch (err) {
       console.log(err);
     }
@@ -46,7 +51,8 @@ export default function Createtrip() {
         <h1>TripList</h1>
       </div>
 
-      <div className="createtripBackground"
+      <div
+        className="createtripBackground"
         style={{ backgroundImage: 'url("/sample2.png")' }}
       ></div>
 

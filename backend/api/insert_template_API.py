@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint,request, jsonify
 import sqlite3
 import os
 from datetime import datetime
@@ -13,14 +13,17 @@ db_path = os.path.join(BASE_DIR, '../database/triplist.db')
 def insert_template():
     conn = sqlite3.connect(db_path)
     cur = conn.cursor()
+    data = request.get_json()
+    user = data.get('user') #*membersのemailと合わせる
 
     # 1️⃣ triplistテーブルから最大のtrip_idを取得
     cur.execute('''
     SELECT trip_id, first_date, last_date
     FROM triplist
+    WHERE user = ?
     ORDER BY trip_id DESC
     LIMIT 1;
-    ''')
+    ''',(user,))
 
     result = cur.fetchone()
     if result:

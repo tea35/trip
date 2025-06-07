@@ -28,7 +28,7 @@ def add_triplist():
 
     cur.execute('''
         INSERT INTO triplist (user, location_name, location_latitude, location_longitude, first_date, last_date)
-        VALUES (?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?)
     ''', (user, location_name, location_latitude, location_longitude, first_date, last_date,))
 
     conn.commit()
