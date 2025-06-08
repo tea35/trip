@@ -30,9 +30,12 @@ def get_item():
     rows = cur.fetchall()
 
     conn.close()
+    # データが取得できなかった場合の処理
+    if not rows:
+        return jsonify({'error': 'No data found'}), 404
 
     # データを辞書に変換
-    items = [dict(row) for row in rows]
+    items = [dict(zip([col[0] for col in cur.description], row)) for row in rows]
 
     if not items:
         return jsonify({'error': 'No data found'}), 404

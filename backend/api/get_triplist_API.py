@@ -32,8 +32,8 @@ def get_triplist():
 
     conn.close()
 
-    # データを辞書に変換
-    triplists = [dict(row) for row in rows]
+    columns = [column[0] for column in cur.description]  # 列名を取得
+    triplists = [dict(zip(columns, row)) for row in rows]
 
     if not triplists:
         return jsonify({'error': 'No data found'}), 404

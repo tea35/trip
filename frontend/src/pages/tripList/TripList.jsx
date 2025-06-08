@@ -5,25 +5,63 @@ import "./TripList.css";
 
 export default function TripList() {
   const navigate = useNavigate();
+  const days = ["日", "月", "火", "水", "木", "金", "土"];
 
   // 仮の旅行データ（本来はバックエンドから取得）
   const TripList = [
-    { id: 1, location_name: "東京", first_date: "1/1", last_date: "1/3" },
-    { id: 2, location_name: "東京", first_date: "1/1", last_date: "1/3" },
+    {
+      trip_id: 7,
+      location_name: "東京",
+      first_date: "2025-01-01",
+      last_date: "2025/01/03",
+    },
+    {
+      trip_id: 8,
+      location_name: "京都",
+      first_date: "2026-01-01",
+      last_date: "2026-01-03",
+    },
   ];
 
   const [trips, setTrips] = useState([]); // APIから取得した旅行データ用のstate
 
+  // YYYY-MM-DDの値に(曜日)を追加する
+  function formatDateWithDay(dateStr) {
+    const date = new Date(dateStr);
+    if (isNaN(date.getTime())) return dateStr; // 日付変換失敗なら元文字列を返す
+    const day = days[date.getDay()];
+    return `${dateStr}(${day})`;
+  }
+
   // // コンポーネントが表示されたときにデータを取得
   useEffect(() => {
-    try {
-      //   const res = await axios.get("/triplist?user=t@gmail.com");
-      //   const TripList = res.data;
-      setTrips(TripList);
-      console.log(TripList);
-    } catch (error) {
-      console.error("データ取得エラー:", error);
-    }
+    const user = "a@g";
+    (async () => {
+      try {
+        const res = await axios.get(`/triplist?user=${user}`);
+
+        // 昨日の日付を取得
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate());
+
+        // 最終日が今日より前の旅行をフィルタリング
+        const filteredTrips = res.data.filter(
+          (trip) => new Date(trip.last_date) >= yesterday
+        );
+
+        const TripList = TripList.sort(
+          (a, b) => new Date(a.first_date) - new Date(b.first_date)
+        );
+        setTrips(TripList);
+        console.log(TripList);
+      } catch (err) {
+        if (err.response.status === 404) {
+          console.error(`404 Not Found: ${err.response.data.error}`);
+
+          console.error("データ取得エラー:", err);
+        }
+      }
+    })();
   }, []);
 
   return (
@@ -32,24 +70,35 @@ export default function TripList() {
         <h1>TripList</h1>
       </div>
 
-      <div className="tripList">
-        {trips.map((trip) => (
-          <div
-            key={trip.id}
-            className="tripCard"
-            onClick={() => navigate(`/checklist/${trip.id}`)}
-          >
-            <p className="tripCardTitle">{trip.location_name}</p>
-            <p className="tripDate">
-              {trip.first_date}~{trip.last_date}
-            </p>
-          </div>
-        ))}
-      </div>
+      <div
+        className="tripListBackground"
+        style={{ backgroundImage: 'url("/sample2.png")' }}
+      >
+        <div className="tripListBox">
+          <p className="tripFormTitle">旅行リスト</p>
 
-      <button className="addButton" onClick={() => navigate("/createtrip")}>
-        +
-      </button>
+          <button className="addButton" onClick={() => navigate("/createtrip")}>
+            +
+          </button>
+
+          <div className="tripList">
+            {trips.map((trip) => (
+              <div
+                key={trip.trip_id}
+                className="tripCard"
+                onClick={() => navigate(`/checklist/${trip.trip_id}`)}
+              >
+                <p className="tripCardTitle">{trip.location_name}</p>
+                <p className="tripDate">
+                  {formatDateWithDay(trip.first_date)} ～{" "}
+                  {formatDateWithDay(trip.last_date)}
+                </p>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </div>
     </div>
   );
 }
