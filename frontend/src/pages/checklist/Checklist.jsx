@@ -130,16 +130,20 @@ export default function Checklist() {
             <ul>
               {items.map((item, idx) => (
                 <li key={idx} className="listItem">
-                  <label>
+                  <label className="customCheckboxLabel">
                     <input
                       type="checkBox"
                       checked={item.check_bool}
                       onChange={() => handleToggle(idx)}
+                      className="customCheckbox"
                     />
-                    {item.item_name}
-                    {item.item_num > 1 && (
-                      <span className="quantityItem"> ×{item.item_num} </span>
-                    )}
+                    <span className="checkmark"></span>
+                    <span>
+                      {item.item_name}
+                      {item.item_num > 1 && (
+                        <span className="quantityItem"> ×{item.item_num} </span>
+                      )}
+                    </span>
                   </label>
                   <div className="quantityChange">
                     {" "}

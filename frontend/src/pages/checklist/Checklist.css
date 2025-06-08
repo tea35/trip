@@ -120,6 +120,58 @@ hhtml, body {
   line-height: 2;
 }
 
+.customCheckboxLabel {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  padding-left: 35px;
+  user-select: none;
+}
+
+.customCheckboxLabel .customCheckbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.customCheckboxLabel .checkmark {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 22px;
+  width: 22px;
+  background-color: white;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.customCheckboxLabel:hover .checkmark {
+  background-color: #ccc;
+}
+
+/* チェックされたときに背景を青に */
+.customCheckbox:checked + .checkmark {
+  background-color: #2196f3;
+  border-color: #2196f3;
+}
+
+/* チェックマークを白に */
+.customCheckboxLabel .customCheckbox:checked + .checkmark::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 3px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  display: block;
+}
+
 .quantityChange {
   display: inline-flex;
   gap:10px;
@@ -169,7 +221,8 @@ hhtml, body {
 .saveButton:hover,
 .backButton:hover,
 .deletebutton:hover,
-.addCheckListButton:hover {
+.addCheckListButton:hover,
+.checkBox:hover {
   background-color: #d4d2d2;  /* ボタンにカーソルを合わせるとグレーになる */
 }
 
