@@ -119,7 +119,7 @@ export default function Checklist() {
             <h2 className="title">旅行チェックリスト</h2>
             <button
               className="saveButton"
-              style={{ backgroundImage: 'url("/save.png")' }}
+              style={{ backgroundImage: 'url("/save2.png")' }}
               onClick={handleUpdateItem}
             ></button>{" "}
             {/*保存ボタン*/}
@@ -197,11 +197,7 @@ export default function Checklist() {
                   min="1"
                 />
               </div>
-
-              <div className="buttonGroup">
-                <button onClick={handleAddItem}>追加</button>
-                <button onClick={handleCancel}>キャンセル</button>
-              </div>
+              <button className="addCheckListButton" onClick={handleAddItem}>追加</button>
             </div>
           </div>
         </div>
