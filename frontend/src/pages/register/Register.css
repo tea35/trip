@@ -134,13 +134,5 @@ html, body {
   width: 100%;
   max-width: 200px;
   margin: auto;
-  background-color: #3a6aee;
-  color: white;
-  border: none;
-  border-radius: 4px;
   cursor: pointer;
-}
-
-.registerButton:hover {
-  background-color: #2e58c4;
 }

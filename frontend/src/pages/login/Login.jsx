@@ -86,18 +86,13 @@ export default function Login() {
                 minLength="6"
                 ref={password}
               />
-              <button className="loginButton" type="submit">
+              <button className="logregiButton" type="submit">
                 ログインする
               </button>
               <div className="divider" />
               会員未登録の方はこちらから
-              <button className="go2registerButton">
-                <Link
-                  to={`/register`}
-                  style={{ textDecoration: "none", color: "black" }}
-                >
-                  <span className="sidebarListItemText">新期会員登録</span>
-                </Link>
+              <button className="logregiButton" type="button" onClick={() => navigate(`/register`)}>
+                新規会員登録 
               </button>
               {statusCode && <p>{statusCode}</p>}
             </form>
