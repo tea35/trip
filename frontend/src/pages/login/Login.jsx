@@ -1,7 +1,9 @@
 import axios from "axios";
 import React, { useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
+import { useDispatch } from "react-redux";
+import { login } from "../../store/store";
 
 //ログインページ
 export default function Login() {
@@ -9,6 +11,8 @@ export default function Login() {
   const password = useRef();
   const [statusCode, setStatusCode] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  //ログイン認証する
   const handleClick = async (e) => {
     e.preventDefault();
     try {
@@ -16,13 +20,13 @@ export default function Login() {
         email: email.current.value,
         password: password.current.value,
       };
-
       setStatusCode("");
-      console.log(user);
-      //loginAPIを叩く
-      const res = await axios.post("/login", user);
 
-      console.log(res);
+      //loginAPIを叩く
+      await axios.post("/login", user);
+      dispatch(login(user.email));
+
+      // console.log(res);
       navigate("/tripList"); // ログイン画面後、トリップリスト画面へ
     } catch (err) {
       if (err.response.status === 500) {
@@ -91,8 +95,12 @@ export default function Login() {
               </button>
               <div className="divider" />
               会員未登録の方はこちらから
-              <button className="logregiButton" type="button" onClick={() => navigate(`/register`)}>
-                新規会員登録 
+              <button
+                className="logregiButton"
+                type="button"
+                onClick={() => navigate(`/register`)}
+              >
+                新規会員登録
               </button>
               {statusCode && <p>{statusCode}</p>}
             </form>

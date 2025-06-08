@@ -7,9 +7,10 @@ import { useNavigate } from "react-router-dom";
 import { ja } from "date-fns/locale";
 import "./Createtrip.css";
 import { format } from "date-fns";
+import { useSelector } from "react-redux";
 
 export default function Createtrip() {
-  const user = "a@g";
+  const user = useSelector((state) => state.auth.user);
   const place = useRef();
   const navigate = useNavigate();
 

@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./TripList.css";
+import { useSelector } from "react-redux";
 
 export default function TripList() {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ export default function TripList() {
       last_date: "2026-01-03",
     },
   ];
+  const user = useSelector((state) => state.auth.user); // ユーザー情報を取得
 
   const [trips, setTrips] = useState([]); // APIから取得した旅行データ用のstate
   // tripsが更新されたタイミングでコンソールに出力
@@ -39,14 +41,13 @@ export default function TripList() {
 
   // // コンポーネントが表示されたときにデータを取得
   useEffect(() => {
-    const user = "a@g";
     (async () => {
       try {
         const res = await axios.get(`/triplist?user=${user}`);
 
         // 昨日の日付を取得
         const yesterday = new Date();
-        yesterday.setDate(yesterday.getDate());
+        yesterday.setDate(yesterday.getDate() - 1);
 
         // 最終日が今日より前の旅行をフィルタリング
         const filteredTrips = res.data.filter(
@@ -56,22 +57,24 @@ export default function TripList() {
         const TripList = filteredTrips.sort(
           (a, b) => new Date(a.first_date) - new Date(b.first_date)
         );
-        setTrips(TripList);
         console.log(TripList);
+        setTrips(TripList);
       } catch (err) {
         if (err.response) {
           if (err.response.status === 404) {
             console.error(`404 Not Found: ${err.response.data.error}`);
           } else {
-            console.error(`Error status: ${err.response.status}`, err.response.data);
+            console.error(
+              `Error status: ${err.response.status}`,
+              err.response.data
+            );
           }
         } else if (err.request) {
-          console.error('No response received from server', err.request);
+          console.error("No response received from server", err.request);
         } else {
-          console.error('Error setting up request', err.message);
+          console.error("Error setting up request", err.message);
         }
       }
-
     })();
   }, []);
 
@@ -107,7 +110,6 @@ export default function TripList() {
               </div>
             ))}
           </div>
-
         </div>
       </div>
     </div>
