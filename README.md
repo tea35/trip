@@ -1,9 +1,21 @@
-# TripList
+# 【TripList】サポーターズ主催 技育CAMP2025 ハッカソン Vol.4 提出作品
+
+## 作品概要
+
+**「忘れ物ゼロの旅へ」** をコンセプトにした旅行時の必要な荷物を管理するためのアプリ
+
+## 使用技術
+
+![](https://img.shields.io/badge/Python-3.10-green)
+![](https://img.shields.io/badge/Flask-3.1.1-blue)
+![](https://img.shields.io/badge/SQLite-3.45.3-blue)
+![](https://img.shields.io/badge/React-19.1.0-blue)
+![](https://img.shields.io/badge/npm-11.3.0-red)
 
 > [!WARNING]
 > **コマンドのパスはMac用なのでWindowsの場合は適宜変更してください**
 
-## 環境構築
+## バックエンド側の環境構築
 
 ### 設定ファイルを使う場合
 
@@ -61,6 +73,16 @@ python3 backend/sample.py
 ```
 
 ### データベースの構造
+
+`backend/database/triplist.db`内に`members`、`triplist`、`checklist`テーブルの３つがある
+
+#### members
+
+| 変数名 | 型 |
+| ---- | ---- |
+| id | INTEGER (PRIMARY KEY AUTOINCREMENT) |
+| email | TEXT () |
+
 
 ## API関連
 
