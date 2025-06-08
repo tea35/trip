@@ -146,8 +146,12 @@ hhtml, body {
 
 .plusButton:hover,
 .minusButton:hover {
-  background-color: #1564b3;  /* より濃い青にするなど */
+  background-color: #1564b3;  /* ボタンにカーソルを合わせるとより濃い青になる */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 
 .deletebutton {
   width: 35px;
@@ -166,22 +170,19 @@ hhtml, body {
 .backButton:hover,
 .deletebutton:hover,
 .addCheckListButton:hover {
-  background-color: #d4d2d2;  /* 灰色系など、任意の色でOK */
+  background-color: #d4d2d2;  /* ボタンにカーソルを合わせるとグレーになる */
 }
 
 .addItemForm {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 20px; /* 入力欄とボタンの間の広めの隙間 */
+  gap: 20px; /* 入力欄とボタンの間の隙間 */
   margin-top: 10px;
 }
 
-.inputGroup,
-.addCheckListButton {
+.inputGroup {
   display: flex;
-  gap: 5px; /* 同グループ内の隙間 */
-  cursor: pointer;
 }
 
 .addItemForm input,
@@ -190,6 +191,9 @@ hhtml, body {
   padding: 8px 12px;
   height: 40px;
   box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .addItemForm button {

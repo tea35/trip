@@ -196,8 +196,8 @@ export default function Checklist() {
                   onChange={(e) => setNewItemQuantity(Number(e.target.value))}
                   min="1"
                 />
-                <button className="addCheckListButton" onClick={handleAddItem}>追加</button>
               </div>
+              <button className="addCheckListButton" onClick={handleAddItem}>追加</button>
             </div>
           </div>
         </div>
