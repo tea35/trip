@@ -3,17 +3,16 @@ import React, { useRef, useState } from "react";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRange } from "react-date-range";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ja } from "date-fns/locale";
 import "./Createtrip.css";
 import { format } from "date-fns";
 
-// 旅行日程を追加
 export default function Createtrip() {
   const user = "a@g";
   const place = useRef();
   const navigate = useNavigate();
-  const today = new Date();
+
   const [selectedDateRange, setSelectedDateRange] = useState([
     {
       startDate: new Date(),
@@ -21,30 +20,58 @@ export default function Createtrip() {
       key: "selection",
     },
   ]);
-  const [errMsg, setErrMsg] = useState("");
+  const [error, setError] = useState(null);
+
+  // 地域名から緯度経度を取得する関数
+  const fetchLatLng = async (address) => {
+    const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+    console.log("process.env:", process.env);
+    console.log("Google Maps APIキー:", apiKey);
+    const response = await axios.get(
+      "https://maps.googleapis.com/maps/api/geocode/json",
+      {
+        params: {
+          address: address,
+          key: apiKey,
+        },
+      }
+    );
+
+    if (response.data.status !== "OK") {
+      throw new Error("Geocoding API error: " + response.data.status);
+    }
+
+    const location = response.data.results[0].geometry.location;
+    return location;
+  };
+
   const handleClick = async (e) => {
     e.preventDefault();
-    if (selectedDateRange[0].startDate <= today) {
-      setErrMsg("初日は今日より後の日付である必要があります。");
-      return;
-    }
     try {
+      const address = place.current.value;
+      const location = await fetchLatLng(address);
+
       const first_date = format(selectedDateRange[0].startDate, "yyyy-MM-dd");
       const last_date = format(selectedDateRange[0].endDate, "yyyy-MM-dd");
+
       const trip = {
         user: user,
-        location_name: place.current.value,
-        location_latitude: 35.6895, // 仮の緯度（東京）
-        location_longitude: 139.6917, // 仮の経度（東京）
+        location_name: address,
+        location_latitude: location.lat,
+        location_longitude: location.lng,
         first_date: first_date,
         last_date: last_date,
       };
-      await axios.post("/triplist", trip);
-      const res = await axios.post("/insert_template", { user });
+
+      console.log(trip);
+
+      await axios.post("http://localhost:5001/triplist", trip);
+      const res = await axios.post("http://localhost:5001/insert_template", { user });
       console.log(res.data.trip_id);
-      navigate(`/checklist/${res.data.trip_id}`); // 登録後にtripList画面へ遷移
+      navigate(`/checklist/${res.data.trip_id}`);
     } catch (err) {
       console.log(err);
+      setError("地域名から緯度経度の取得に失敗しました。入力内容を確認してください。");
     }
   };
 
@@ -59,9 +86,10 @@ export default function Createtrip() {
         style={{ backgroundImage: 'url("/sample2.png")' }}
       ></div>
 
-      <form className="tripBox" onSubmit={(e) => handleClick(e)}>
+      <form className="tripBox" onSubmit={handleClick}>
         <p className="tripFormTitle">新しい旅行を作成</p>
         <p className="tripMsg">旅行情報を入力してください</p>
+
         <div className="inputRow">
           <div className="tripPlaceGroup">
             <div className="tripPlaceLabel">場所</div>
@@ -77,7 +105,6 @@ export default function Createtrip() {
           <div className="tripDateGroup">
             <div className="tripDateLabel">日付</div>
             <DateRange
-              // className="customDateRange"
               onChange={(ranges) => setSelectedDateRange([ranges.selection])}
               showSelectionPreview={true}
               moveRangeOnFirstSelection={false}
@@ -89,12 +116,17 @@ export default function Createtrip() {
             />
           </div>
         </div>
+
+        {error && (
+          <div className="text-red-500 mt-2">{error}</div>
+        )}
+
         <div className="divider" />
         <button className="go2registerButton" type="submit">
           登録
         </button>
-        {errMsg && <div className="errMsg">{errMsg}</div>}
       </form>
     </div>
   );
 }
+

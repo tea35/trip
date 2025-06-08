@@ -34,7 +34,7 @@ def get_triplist():
 
     columns = [column[0] for column in cur.description]  # 列名を取得
     triplists = [dict(zip(columns, row)) for row in rows]
-
+    print(triplists)
     if not triplists:
         return jsonify({'error': 'No data found'}), 404
 

@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify
+from flask_cors import CORS, cross_origin
 import sqlite3
 import os
 
@@ -9,8 +10,11 @@ add_triplist_bp = Blueprint('add_triplist', __name__)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 db_path = os.path.join(BASE_DIR, '../database/triplist.db')
 
-@add_triplist_bp.route('/triplist', methods=['POST'])
+@add_triplist_bp.route("/triplist", methods=["POST", "OPTIONS"])
+@cross_origin(origin='http://localhost:3000')
 def add_triplist():
+    if request.method == "OPTIONS":
+        return '', 200
     data = request.get_json()
     user = data.get('user' ) #*membersのemailと合わせる
     location_name = data.get('location_name')

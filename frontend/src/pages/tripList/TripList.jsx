@@ -24,6 +24,10 @@ export default function TripList() {
   ];
 
   const [trips, setTrips] = useState([]); // APIから取得した旅行データ用のstate
+  // tripsが更新されたタイミングでコンソールに出力
+  useEffect(() => {
+    console.log("tripsの中身:", trips);
+  }, [trips]);
 
   // YYYY-MM-DDの値に(曜日)を追加する
   function formatDateWithDay(dateStr) {
@@ -49,18 +53,25 @@ export default function TripList() {
           (trip) => new Date(trip.last_date) >= yesterday
         );
 
-        const TripList = TripList.sort(
+        const TripList = filteredTrips.sort(
           (a, b) => new Date(a.first_date) - new Date(b.first_date)
         );
         setTrips(TripList);
         console.log(TripList);
       } catch (err) {
-        if (err.response.status === 404) {
-          console.error(`404 Not Found: ${err.response.data.error}`);
-
-          console.error("データ取得エラー:", err);
+        if (err.response) {
+          if (err.response.status === 404) {
+            console.error(`404 Not Found: ${err.response.data.error}`);
+          } else {
+            console.error(`Error status: ${err.response.status}`, err.response.data);
+          }
+        } else if (err.request) {
+          console.error('No response received from server', err.request);
+        } else {
+          console.error('Error setting up request', err.message);
         }
       }
+
     })();
   }, []);
 

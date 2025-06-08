@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from database.create_db import create_tables
 from api.register_API import register_bp
 from api.login_API import login_bp
@@ -12,6 +13,10 @@ from api.update_item_API import update_items_bp
 from api.insert_template_API import insert_template_bp
 
 app = Flask(__name__)
+from flask_cors import CORS
+
+app = Flask(__name__)
+CORS(app, origins="http://localhost:3000")
 
 # Blueprintを登録
 app.register_blueprint(register_bp)
@@ -29,4 +34,4 @@ if __name__ == '__main__':
     with app.app_context():
         print(app.url_map)
     create_tables()
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=5001)
