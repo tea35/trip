@@ -48,8 +48,9 @@ hhtml, body {
   align-items: center;
   width: 100%;
   margin-bottom: 10px;
-  font-size:22px;
-  margin-bottom: -0.4em;
+  font-size:25px;
+  margin-top: -1.0rem;
+  margin-bottom: -1.8rem;
 }
 
 .title {
@@ -59,8 +60,8 @@ hhtml, body {
 .backButton {
   position: absolute;
   left: 42px;
-  width: 50px;
-  height: 50px;
+  width: 46px;
+  height: 46px;
   background-size: cover;     /* 画像をボタンサイズに拡大縮小して全体を覆う */
   background-position: center;
   background-repeat: no-repeat;
@@ -74,8 +75,8 @@ hhtml, body {
 .saveButton {
   position: absolute;
   right: 110px;
-  width: 50px;
-  height: 50px;
+  width: 52px;
+  height: 52px;
   background-size: cover;     /* 画像をボタンサイズに拡大縮小して全体を覆う */
   background-position: center;
   background-repeat: no-repeat;
@@ -129,23 +130,7 @@ hhtml, body {
   font-size: 17px;
 }
 
-
-
-
-.minusButton {
-  background-color: #2196f3;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  font-size: 25px;
-  cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-  z-index: 10;
-}
-
-
+.minusButton,
 .plusButton {
   background-color: #2196f3;
   color: white;
@@ -159,17 +144,9 @@ hhtml, body {
   z-index: 10;
 }
 
-.createListButton {
-  background-color: #2196f3;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 45px;
-  cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-  z-index: 10;
+.plusButton:hover,
+.minusButton:hover {
+  background-color: #1564b3;  /* より濃い青にするなど */
 }
 
 .deletebutton {
@@ -185,6 +162,13 @@ hhtml, body {
   border-radius: 6px;
 }
 
+.saveButton:hover,
+.backButton:hover,
+.deletebutton:hover,
+.addCheckListButton:hover {
+  background-color: #d4d2d2;  /* 灰色系など、任意の色でOK */
+}
+
 .addItemForm {
   display: flex;
   justify-content: flex-start;
@@ -194,9 +178,10 @@ hhtml, body {
 }
 
 .inputGroup,
-.buttonGroup {
+.addCheckListButton {
   display: flex;
   gap: 5px; /* 同グループ内の隙間 */
+  cursor: pointer;
 }
 
 .addItemForm input,
@@ -211,5 +196,4 @@ hhtml, body {
   border-radius: 6px;
   cursor: pointer;
   border: 1px solid #494949;
-  background-color: white;
 }
