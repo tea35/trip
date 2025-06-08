@@ -49,7 +49,7 @@ export default function TripList() {
           (trip) => new Date(trip.last_date) >= yesterday
         );
 
-        const TripList = filteredTrips.sort(
+        const TripList = TripList.sort(
           (a, b) => new Date(a.first_date) - new Date(b.first_date)
         );
         setTrips(TripList);
@@ -76,6 +76,11 @@ export default function TripList() {
       >
         <div className="tripListBox">
           <p className="tripFormTitle">旅行リスト</p>
+
+          <button className="addButton" onClick={() => navigate("/createtrip")}>
+            +
+          </button>
+
           <div className="tripList">
             {trips.map((trip) => (
               <div
@@ -91,12 +96,9 @@ export default function TripList() {
               </div>
             ))}
           </div>
+
         </div>
       </div>
-
-      <button className="addButton" onClick={() => navigate("/createtrip")}>
-        +
-      </button>
     </div>
   );
 }

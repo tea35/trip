@@ -31,11 +31,13 @@ body {
 }
 
 .tripListBox {
+  position: relative;
   background-color: rgba(255, 255, 255, 0.85);
   border-radius: 8px;
-  padding: 40px;
-  margin: 100px auto;
-  height: 70%;
+  padding: 45px;
+  margin: 120px;
+  top: 30px;
+  height: 75%;
   width: 800px;
   max-width: 600px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
@@ -66,7 +68,9 @@ body {
   border-radius: 12px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  height: 60px;
+  height: 55px;
+  min-height: 55px;
+  max-height: 55px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -92,15 +96,15 @@ body {
 }
 
 .addButton {
-  position: fixed;
-  top: 100px; /* ヘッダー下あたりに配置 */
-  right: 310px;
+  position: absolute;
+  top: 30px; /* ヘッダー下あたりに配置 */
+  right: 50px;
   background-color: #2196f3;
   color: white;
   border: none;
   border-radius: 50%;
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
   font-size: 45px;
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
