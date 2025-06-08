@@ -40,6 +40,7 @@ hhtml, body {
   border-radius: 8px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
   margin-top: 20px; 
+  align-items: center; /* 中央寄せ */
 }
 
 .titleBar {
@@ -48,19 +49,20 @@ hhtml, body {
   align-items: center;
   width: 100%;
   margin-bottom: 10px;
-  font-size:22px;
-  margin-bottom: -0.4em;
+  font-size:25px;
+  margin-top: -1.0rem;
+  margin-bottom: -1.8rem;
 }
 
 .title {
-  padding-left: 70px;
+  padding-left: 100px;
 }
 
 .backButton {
   position: absolute;
-  left: 42px;
-  width: 50px;
-  height: 50px;
+  left: 76px;
+  width: 46px;
+  height: 46px;
   background-size: cover;     /* 画像をボタンサイズに拡大縮小して全体を覆う */
   background-position: center;
   background-repeat: no-repeat;
@@ -73,9 +75,9 @@ hhtml, body {
 
 .saveButton {
   position: absolute;
-  right: 110px;
-  width: 50px;
-  height: 50px;
+  right: 80px;
+  width: 52px;
+  height: 52px;
   background-size: cover;     /* 画像をボタンサイズに拡大縮小して全体を覆う */
   background-position: center;
   background-repeat: no-repeat;
@@ -87,6 +89,8 @@ hhtml, body {
 }
 
 .checkListBox {
+  margin-left: auto;
+  margin-right: auto;
   border: 1px solid black;  /* 黒い枠線 */
   background-color: transparent;
   padding: 15px;
@@ -119,6 +123,58 @@ hhtml, body {
   line-height: 2;
 }
 
+.customCheckboxLabel {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  padding-left: 35px;
+  user-select: none;
+}
+
+.customCheckboxLabel .customCheckbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.customCheckboxLabel .checkmark {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 22px;
+  width: 22px;
+  background-color: white;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.customCheckboxLabel:hover .checkmark {
+  background-color: #ccc;
+}
+
+/* チェックされたときに背景を青に */
+.customCheckbox:checked + .checkmark {
+  background-color: #2196f3;
+  border-color: #2196f3;
+}
+
+/* チェックマークを白に */
+.customCheckboxLabel .customCheckbox:checked + .checkmark::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 3px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  display: block;
+}
+
 .quantityChange {
   display: inline-flex;
   gap:10px;
@@ -129,23 +185,7 @@ hhtml, body {
   font-size: 17px;
 }
 
-
-
-
-.minusButton {
-  background-color: #2196f3;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  font-size: 25px;
-  cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-  z-index: 10;
-}
-
-
+.minusButton,
 .plusButton {
   background-color: #2196f3;
   color: white;
@@ -159,18 +199,14 @@ hhtml, body {
   z-index: 10;
 }
 
-.createListButton {
-  background-color: #2196f3;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 45px;
-  cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-  z-index: 10;
+.plusButton:hover,
+.minusButton:hover {
+  background-color: #1564b3;  /* ボタンにカーソルを合わせるとより濃い青になる */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 
 .deletebutton {
   width: 35px;
@@ -185,18 +221,38 @@ hhtml, body {
   border-radius: 6px;
 }
 
+.saveButton:hover,
+.backButton:hover,
+.deletebutton:hover,
+.addCheckListButton:hover,
+.checkBox:hover {
+  background-color: #d4d2d2;  /* ボタンにカーソルを合わせるとグレーになる */
+}
+
+.createCheckList {
+  width: 900px;       /* 幅を揃える */
+  margin-left: 0;
+  margin-right: auto; /* 中央寄せ */
+  padding-top: 10px;
+}
+
+.checkListBox,
+.createCheckList {
+  width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .addItemForm {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 20px; /* 入力欄とボタンの間の広めの隙間 */
+  gap: 20px; /* 入力欄とボタンの間の隙間 */
   margin-top: 10px;
 }
 
-.inputGroup,
-.buttonGroup {
+.inputGroup {
   display: flex;
-  gap: 5px; /* 同グループ内の隙間 */
 }
 
 .addItemForm input,
@@ -205,11 +261,13 @@ hhtml, body {
   padding: 8px 12px;
   height: 40px;
   box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .addItemForm button {
   border-radius: 6px;
   cursor: pointer;
   border: 1px solid #494949;
-  background-color: white;
 }

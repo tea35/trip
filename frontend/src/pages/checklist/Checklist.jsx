@@ -119,7 +119,7 @@ export default function Checklist() {
             <h2 className="title">旅行チェックリスト</h2>
             <button
               className="saveButton"
-              style={{ backgroundImage: 'url("/save.png")' }}
+              style={{ backgroundImage: 'url("/save2.png")' }}
               onClick={handleUpdateItem}
             ></button>{" "}
             {/*保存ボタン*/}
@@ -130,16 +130,20 @@ export default function Checklist() {
             <ul>
               {items.map((item, idx) => (
                 <li key={idx} className="listItem">
-                  <label>
+                  <label className="customCheckboxLabel">
                     <input
                       type="checkBox"
                       checked={item.check_bool}
                       onChange={() => handleToggle(idx)}
+                      className="customCheckbox"
                     />
-                    {item.item_name}
-                    {item.item_num > 1 && (
-                      <span className="quantityItem"> ×{item.item_num} </span>
-                    )}
+                    <span className="checkmark"></span>
+                    <span>
+                      {item.item_name}
+                      {item.item_num > 1 && (
+                        <span className="quantityItem"> ×{item.item_num} </span>
+                      )}
+                    </span>
                   </label>
                   <div className="quantityChange">
                     {" "}
@@ -197,11 +201,7 @@ export default function Checklist() {
                   min="1"
                 />
               </div>
-
-              <div className="buttonGroup">
-                <button onClick={handleAddItem}>追加</button>
-                <button onClick={handleCancel}>キャンセル</button>
-              </div>
+              <button className="addCheckListButton" onClick={handleAddItem}>追加</button>
             </div>
           </div>
         </div>

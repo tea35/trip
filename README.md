@@ -4,6 +4,8 @@
 
 **「忘れ物ゼロの旅へ」** をコンセプトにした旅行時の必要な荷物を管理するためのアプリ
 
+![TripList スクリーンショット](frontend/public/screenshot1.png)
+
 ## 使用技術
 
 ![](https://img.shields.io/badge/Python-3.10-green)
@@ -14,6 +16,35 @@
 
 > [!WARNING]
 > **コマンドのパスはMac用なのでWindowsの場合は適宜変更してください**
+
+## フロントエンド側の環境構築
+
+### フロントエンドの起動方法
+
+リポジトリのクローン
+
+```
+git clone https://github.com/tea35/trip.git
+```
+
+frontendディレクトリへ移動
+
+```
+cd trip/frontend
+```
+
+npmのインストール
+
+```
+npm install
+```
+
+アプリの起動
+
+```
+npm start
+```
+
 
 ## バックエンド側の環境構築
 
@@ -81,7 +112,30 @@ python3 backend/sample.py
 | 変数名 | 型 |
 | ---- | ---- |
 | id | INTEGER (PRIMARY KEY AUTOINCREMENT) |
-| email | TEXT () |
+| email | TEXT (UNIQUE NOT NULL) |
+| password | TEXT (NOT NULL) |
+
+#### triplist
+
+| 変数名 | 型 |
+| ---- | ---- |
+| user | TEXT (NOT NULL) |
+| location_name | TEXT (NOT NULL) |
+| location_latitude | REAL |
+| location_longitude | REAL |
+| first_date | TEXT (NOT NULL) |
+| last_date | TEXT (NOT NULL) |
+| trip_id | INTEGER (PRIMARY KEY AUTOINCREMENT) |
+
+#### checklist
+
+| 変数名 | 型 |
+| ---- | ---- |
+| checklist_id | INTEGER (FOREIGN KEY → triplist.trip_id, ON DELETE CASCADE) |
+| item_name | TEXT (NOT NULL) |
+| item_num | INTEGER |
+| check_bool | INTEGER |
+| item_id | INTEGER (PRIMARY KEY AUTOINCREMENT) |
 
 
 ## API関連
