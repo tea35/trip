@@ -40,6 +40,7 @@ hhtml, body {
   border-radius: 8px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
   margin-top: 20px; 
+  align-items: center; /* 中央寄せ */
 }
 
 .titleBar {
@@ -54,12 +55,12 @@ hhtml, body {
 }
 
 .title {
-  padding-left: 70px;
+  padding-left: 100px;
 }
 
 .backButton {
   position: absolute;
-  left: 42px;
+  left: 76px;
   width: 46px;
   height: 46px;
   background-size: cover;     /* 画像をボタンサイズに拡大縮小して全体を覆う */
@@ -74,7 +75,7 @@ hhtml, body {
 
 .saveButton {
   position: absolute;
-  right: 110px;
+  right: 80px;
   width: 52px;
   height: 52px;
   background-size: cover;     /* 画像をボタンサイズに拡大縮小して全体を覆う */
@@ -88,6 +89,8 @@ hhtml, body {
 }
 
 .checkListBox {
+  margin-left: auto;
+  margin-right: auto;
   border: 1px solid black;  /* 黒い枠線 */
   background-color: transparent;
   padding: 15px;
@@ -224,6 +227,20 @@ hhtml, body {
 .addCheckListButton:hover,
 .checkBox:hover {
   background-color: #d4d2d2;  /* ボタンにカーソルを合わせるとグレーになる */
+}
+
+.createCheckList {
+  width: 900px;       /* 幅を揃える */
+  margin-left: 0;
+  margin-right: auto; /* 中央寄せ */
+  padding-top: 10px;
+}
+
+.checkListBox,
+.createCheckList {
+  width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .addItemForm {
