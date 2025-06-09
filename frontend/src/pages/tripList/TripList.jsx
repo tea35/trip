@@ -30,6 +30,14 @@ export default function TripList() {
   useEffect(() => {
     console.log("tripsの中身:", trips);
   }, [trips]);
+  // tripの削除
+  const handleDelete = async (index) => {
+    console.log(index);
+    await axios.delete(`/triplist/${index}`);
+    const res = await axios.get(`/triplist?user=${user}`);
+    console.log(res.data);
+    setTrips(res.data);
+  };
 
   // YYYY-MM-DDの値に(曜日)を追加する
   function formatDateWithDay(dateStr) {
@@ -107,6 +115,15 @@ export default function TripList() {
                   {formatDateWithDay(trip.first_date)} ～{" "}
                   {formatDateWithDay(trip.last_date)}
                 </p>
+                <button
+                  className="deletebutton"
+                  style={{ backgroundImage: 'url("/delete.png")' }}
+                  onClick={(e) => {
+                    e.stopPropagation(); // ← これでOK
+                    handleDelete(trip.trip_id);
+                  }}
+                ></button>{" "}
+                {/*削除ボタン*/}
               </div>
             ))}
           </div>
